@@ -72,6 +72,12 @@ def speech_to_text(lan):
         except:
             print("Can't understand")
 
+def set_up_audio():
+    if var == 1:
+        entry.destroy()
+
+    else:
+        entry.pack()
 
 # User picks source language
 src_input = StringVar()
@@ -88,11 +94,10 @@ Label(root, text="Destination Language").pack()
 dest_drop.pack()
 
 var = IntVar()
-using_audio = Checkbutton(root, text="Using an Audio File?", variable=var).pack()
+using_audio = Checkbutton(root, text="Using an Audio File?", command=set_up_audio, variable=var).pack()
 
 # User inputs the sentences to translate
 entry = Entry(root)
-entry.pack()
 enterButton = Button(root, text="Enter", command=translate)
 enterButton.pack()
 
