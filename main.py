@@ -1,3 +1,5 @@
+import tkinter.filedialog
+
 from googletrans import Translator
 from langdetect import detect, detect_langs
 from tkinter import *
@@ -95,6 +97,7 @@ dest_drop.pack()
 
 var = IntVar()
 using_audio = Checkbutton(root, text="Using an Audio File?", command=set_up_audio, variable=var).pack()
+audioFile = tkinter.filedialog.askopenfilename()
 
 # User inputs the sentences to translate
 entry = Entry(root)
