@@ -23,7 +23,7 @@ This Python project is designed to fulfill the requirements of the AP Computer S
 1. Clone the repository to your local machine:
 
    ```bash
-   git clone https://github.com/your-username/language-translator.git
+   git clone https://github.com/WishKish/languageTranslator.git
    ```
 
 2. Navigate to the project directory:
@@ -35,7 +35,7 @@ This Python project is designed to fulfill the requirements of the AP Computer S
 3. Run the application:
 
    ```bash
-   python translator.py
+   python main.py
    ```
 
 4. The GUI will appear, allowing you to input text in the source language, select the target language, and perform the translation.
