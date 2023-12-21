@@ -10,7 +10,7 @@ This Python project is designed to fulfill the requirements of the AP Computer S
 
 - **Language Translation:** Utilizes Google's googletrans library to perform language translation. Users can input text in a source language and receive the translation in a target language of their choice.
 
-- **Supported Languages:** The translator supports a wide range of languages, making it versatile for various translation needs.
+- **Supported Languages:** The translator supports German, Spanish, and English.
 
 ## Requirements
 
