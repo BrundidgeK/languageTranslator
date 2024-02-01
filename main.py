@@ -11,29 +11,36 @@ languages = {
 
 root = Tk()
 
+
 # checks sentence for possible errors
 def check_sentence(sen, src):
     words = sen.split()
     language = src
 
+    # Checks individual words to find the problem
     for i in range(0, len(words)):
-        lan = detect(words[i])
-        con = float(str(detect_langs(sen)[0])[3:])
+        lan = detect(words[i])  # finds the language
+        con = float(str(detect_langs(sen)[0])[3:])  # Find confidence score in translation
 
         if con < .85:
-            print("The language of your input is unclear")
-            return 0
+            return "The language of your input is unclear"
         elif lan != language:
-            print("The sentence contains a language not specified")
-            return 0
+            return "The sentence contains a language not specified"
 
-    print("Sorry! Couldn't find the error")
+    return "Sorry! Couldn't find the error"
 
 
+# translates the user input
 def translate():
-    sentences = entry.get().split(".")
+
     src = languages.get(src_input.get())
     dest = languages.get(dest_input.get())
+    if src == dest:
+        output.config(text="This sentence is already in " + str(src_input.get()))
+        return
+
+    # Breaks paragraph into sentences (easier to translate)
+    sentences = entry.get().split(".")
 
     trans = Translator()
     paragraph = ""
@@ -41,28 +48,31 @@ def translate():
     for s in sentences:
         translation = trans.translate(s, src=src, dest=dest)
         if translation.text != entry.get():
-            paragraph += translation.text + "."
+            paragraph += translation.text + ". "
         else:
-            check_sentence(s)
+            output.config(text=check_sentence(s, src))
             return
 
     output.config(text=paragraph)
 
 
-
+# Tkinter user interface
+# Gets input for the original language
 src_input = StringVar()
 src_input.set("English")
 src_drop = OptionMenu(root, src_input, "English", "Spanish", "German")
 Label(root, text="Source Language").pack()
 src_drop.pack()
 
+# Gets the desired language to output
 dest_input = StringVar()
 dest_input.set("Spanish")
 dest_drop = OptionMenu(root, dest_input, "English", "Spanish", "German")
 Label(root, text="Destination Language").pack()
 dest_drop.pack()
 
-entry = Entry(root)
+# Text field for user to input paragraph
+entry = Text(root)
 entry.pack()
 
 enterButton = Button(root, text="Enter", command=translate)
@@ -71,9 +81,3 @@ enterButton.pack()
 output = Label(root, text="Enter Your text")
 output.pack()
 root.mainloop()
-
-#src = languages.get(input("What language are you starting with "))
-#text = input("What would you like to translate: ")
-#dest = languages.get(input("What language translate to "))
-
-
