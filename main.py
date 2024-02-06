@@ -6,28 +6,11 @@ from tkinter import *
 languages = {
     "English": "en",
     "Spanish": "es",
-    "German": "de"
+    "German": "de",
+
 }
 
 root = Tk()
-
-
-# checks sentence for possible errors
-def check_sentence(sen, src):
-    words = sen.split()
-    language = src
-
-    # Checks individual words to find the problem
-    for i in range(0, len(words)):
-        lan = detect(words[i])  # finds the language
-        con = float(str(detect_langs(sen)[0])[3:])  # Find confidence score in translation
-
-        if con < .85:
-            return "The language of your input is unclear"
-        elif lan != language:
-            return "The sentence contains a language not specified"
-
-    return "Sorry! Couldn't find the error"
 
 
 # translates the user input
@@ -56,18 +39,36 @@ def translate():
     output.config(text=paragraph)
 
 
+# checks sentence for possible errors
+def check_sentence(sen, src):
+    words = sen.split()
+    language = src
+
+    # Checks individual words to find the problem
+    for i in range(0, len(words)):
+        lan = detect(words[i])  # finds the language
+        con = float(str(detect_langs(sen)[0])[3:])  # Find confidence score in translation
+
+        if con < .85:
+            return "The language of your input is unclear"
+        elif lan != language:
+            return "The sentence contains a language not specified"
+
+    return "Sorry! Unable to find the error"
+
+
 # Tkinter user interface
 # Gets input for the original language
 src_input = StringVar()
 src_input.set("English")
-src_drop = OptionMenu(root, src_input, "English", "Spanish", "German")
+src_drop = OptionMenu(root, src_input, *languages.keys())
 Label(root, text="Source Language").pack()
 src_drop.pack()
 
 # Gets the desired language to output
 dest_input = StringVar()
 dest_input.set("Spanish")
-dest_drop = OptionMenu(root, dest_input, "English", "Spanish", "German")
+dest_drop = OptionMenu(root, dest_input, *languages.keys())
 Label(root, text="Destination Language").pack()
 dest_drop.pack()
 
