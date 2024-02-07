@@ -7,7 +7,11 @@ languages = {
     "English": "en",
     "Spanish": "es",
     "German": "de",
-
+    "French": "fr",
+    "Hebrew": "he",
+    "Italian": "it",
+    "Russian": "ru",
+    "Polish": "pl"
 }
 
 root = Tk()
@@ -23,15 +27,16 @@ def translate():
         return
 
     # Breaks paragraph into sentences (easier to translate)
-    sentences = entry.get().split(".")
+    sentences = entry.get().split(". ")
 
     trans = Translator()
     paragraph = ""
 
     for s in sentences:
+        print(s)
         translation = trans.translate(s, src=src, dest=dest)
         if translation.text != entry.get():
-            paragraph += translation.text + ". "
+            paragraph += translation.text + "\n"
         else:
             output.config(text=check_sentence(s, src))
             return
@@ -73,7 +78,7 @@ Label(root, text="Destination Language").pack()
 dest_drop.pack()
 
 # Text field for user to input paragraph
-entry = Text(root)
+entry = Entry(root)
 entry.pack()
 
 enterButton = Button(root, text="Enter", command=translate)
